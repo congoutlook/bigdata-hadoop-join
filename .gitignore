@@ -1,0 +1,36 @@
+# Hadoop binaries
+data/hadoop-3.4.3/
+data/hadoop-3.4.3.tar.gz
+data/hadoop-data/
+
+docs/
+
+# Maven build output / Hadoop output
+target/
+output/
+*.class
+*.log
+*.crc
+_SUCCESS
+part-*
+
+# Office lock files
+~$*
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code
+CLAUDE.md
+.claude/

@@ -1,0 +1,21 @@
+services:
+  bigdata:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bigdata-container
+    hostname: bigdata
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../data:/data
+    working_dir: /workspace
+    restart: unless-stopped
+    ports:
+      - "9870:9870"   # HDFS NameNode Web UI
+      - "9868:9868"   # HDFS SecondaryNameNode Web UI
+      - "9864:9864"   # HDFS DataNode Web UI
+      - "9000:9000"   # HDFS RPC (fs.defaultFS)
+      - "8089:8088"   # YARN ResourceManager Web UI
+      - "8042:8042"   # YARN NodeManager Web UI
+      - "19888:19888" # MapReduce JobHistory Server Web UI
