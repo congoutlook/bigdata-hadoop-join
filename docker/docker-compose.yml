@@ -1,3 +1,5 @@
+name: bigdata-hadoop-join   # tên project cố định, tránh trùng với project khác cũng nằm trong thư mục "docker"
+
 services:
   bigdata:
     build:
@@ -19,3 +21,22 @@ services:
       - "8089:8088"   # YARN ResourceManager Web UI
       - "8042:8042"   # YARN NodeManager Web UI
       - "19888:19888" # MapReduce JobHistory Server Web UI
+
+  # MySQL dùng để kiểm chứng kết quả MapReduce Join bằng SQL INNER JOIN
+  mysql:
+    image: mysql:8.0
+    container_name: bigdata-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"   # root không dùng; tài khoản làm việc là admin / "" (tạo trong init script)
+      TZ: Asia/Ho_Chi_Minh
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+      - ../data/mapreduce-join/customers.csv:/csv-src/customers.csv:ro
+      - ../data/mapreduce-join/orders.csv:/csv-src/orders.csv:ro
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"   # 3306 trên host đã có MySQL khác dùng
+
+volumes:
+  mysql-data:
