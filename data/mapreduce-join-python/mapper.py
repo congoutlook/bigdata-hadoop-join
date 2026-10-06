@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Mapper dung chung cho ca customers.csv va orders.csv.
-Hadoop Streaming khong ho tro MultipleInputs (moi input file -> mapper rieng)
-nhu Java API, nen mapper tu nhan biet dang dang doc file nao qua bien moi
-truong "mapreduce_map_input_file" ma Hadoop Streaming luon set cho moi task.
+Mapper dùng chung cho cả customers.csv và orders.csv.
 
-customers.csv: custId,name,city              -> key=custId  value=C|name,city
-orders.csv:    orderId,custId,product,amount  -> key=custId  value=O|orderId,product,amount
+Hadoop Streaming không có MultipleInputs như Java, mapper dùng biến
+môi trường mapreduce_map_input_file để biết đang đọc file nào.
+
+customers.csv: custId,name,city; output ra: custId  C|name,city
+orders.csv:    orderId,custId,product,amount; output ra: custId  O|orderId,product,amount
 """
 import os
 import sys

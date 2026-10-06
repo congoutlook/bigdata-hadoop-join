@@ -14,18 +14,16 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 /**
- * Join customers.csv và orders.csv theo custId (reduce-side join).
+ * Chương trình chính: join customers.csv và orders.csv theo custId.
  *
- * Cách chạy:
- *   hadoop jar target/mapreduce-join-V1.jar com.hadoop.mapreduce.join.JoinDriver \
- *       [-D key=value ...] <customers_path> <orders_path> <output_path>
- *
- * Ví dụ chạy song song (4 Map Task, 2 Reduce Task):
- *   -D mapreduce.input.fileinputformat.split.maxsize=64 -D mapreduce.job.reduces=2
+ * Thêm tham số -D trước đường dẫn để đổi cấu hình, ví dụ chạy 4 Mapper và 2 Reducer:
+ * -D mapreduce.input.fileinputformat.split.maxsize=64 
+ * -D mapreduce.job.reduces=2
  */
 public class JoinDriver extends Configured implements Tool {
 
 	public static void main(String[] args) throws Exception {
+		// ToolRunner đọc các tham số -D, sau đó mới gọi hàm run() bên dưới.
 		System.exit(ToolRunner.run(new Configuration(), new JoinDriver(), args));
 	}
 

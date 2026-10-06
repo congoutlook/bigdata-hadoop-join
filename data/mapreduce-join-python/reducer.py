@@ -2,17 +2,14 @@
 """
 Reducer cho Hadoop Streaming.
 
-Khong nhu Java API (duoc goi 1 lan/group voi Iterable<value> co san),
-Streaming chi dua vao stdin 1 luong dong "key\\tvalue" da duoc SORT theo key
-(khong group san) -> reducer phai tu nhan biet khi nao key doi de "dong" 1
-group va xu ly, giong cach lam kinh dien cua bai Word Count bang Streaming.
-
-Voi moi group (custId): tach ra 1 customer record va N order record,
-chi sinh output khi co ca 2 phia (inner join).
+Hadoop đưa vào stdin các dòng "key<TAB>value" đã sắp xếp theo key.
+Khác với Java, các value cùng key không được gom sẵn, nên phải tự
+kiểm tra khi nào key thay đổi thì xử lý nhóm vừa đọc xong.
 """
 import sys
 
 
+# In kết quả của một custId. Chỉ in khi có cả khách hàng và đơn hàng (inner join).
 def flush(cust_id, customer_info, orders):
     if customer_info is None or not orders:
         return
