@@ -1,0 +1,9 @@
+# Luôn dùng LF cho mọi file văn bản, kể cả khi clone trên Windows
+* text=auto eol=lf
+
+# File nhị phân, không đổi
+*.jar binary
+*.docx binary
+*.pptx binary
+*.png binary
+*.jpg binary
